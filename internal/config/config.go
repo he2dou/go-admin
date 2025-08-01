@@ -40,13 +40,13 @@ func MustLoad(fpaths ...string) {
 			Loader:    multiconfig.MultiLoader(loaders...),
 			Validator: multiconfig.MultiValidator(&multiconfig.RequiredValidator{}),
 		}
-		m.MustLoad(C)
+		m.MustLoad(App)
 	})
 }
 
 func PrintWithJSON() {
 	if C.PrintConfig {
-		b, err := json.MarshalIndent(C, "", " ")
+		b, err := json.MarshalIndent(App, "", " ")
 		if err != nil {
 			os.Stdout.WriteString("[CONFIG] JSON marshal error: " + err.Error())
 			return
