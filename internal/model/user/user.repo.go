@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+
 	"github.com/he2dou/go-admin/internal/model/util"
 	"github.com/he2dou/go-admin/internal/pkg/errors"
 	"github.com/he2dou/go-admin/internal/schema"
@@ -61,7 +62,7 @@ func (a *UserRepo) Query(ctx context.Context, params schema.UserQueryParam, opts
 
 	qr := &schema.UserQueryResult{
 		PageResult: pr,
-		Data:       list.ToSchemaUsers(),
+		Data:       list.GetUsers(),
 	}
 	return qr, nil
 }
@@ -75,17 +76,17 @@ func (a *UserRepo) Get(ctx context.Context, id uint64, opts ...schema.UserQueryO
 		return nil, nil
 	}
 
-	return item.ToSchemaUser(), nil
+	return item.GetUser(), nil
 }
 
 func (a *UserRepo) Create(ctx context.Context, item schema.User) error {
 	sitem := SchemaUser(item)
-	result := GetUserDB(ctx, a.DB).Create(sitem.ToUser())
+	result := GetUserDB(ctx, a.DB).Create(sitem.SetUser())
 	return errors.WithStack(result.Error)
 }
 
 func (a *UserRepo) Update(ctx context.Context, id uint64, item schema.User) error {
-	eitem := SchemaUser(item).ToUser()
+	eitem := SchemaUser(item).SetUser()
 	result := GetUserDB(ctx, a.DB).Where("id=?", id).Updates(eitem)
 	return errors.WithStack(result.Error)
 }

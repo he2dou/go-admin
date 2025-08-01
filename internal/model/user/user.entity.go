@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+
 	"github.com/he2dou/go-admin/internal/model/util"
 	"github.com/he2dou/go-admin/internal/schema"
 	"github.com/he2dou/go-admin/internal/utils/structure"
@@ -15,7 +16,7 @@ func GetUserDB(ctx context.Context, defDB *gorm.DB) *gorm.DB {
 
 type SchemaUser schema.User
 
-func (a SchemaUser) ToUser() *User {
+func (a SchemaUser) SetUser() *User {
 	item := new(User)
 	structure.Copy(a, item)
 	return item
@@ -32,7 +33,7 @@ type User struct {
 	Creator  uint64  `gorm:""`                                         // 创建者
 }
 
-func (a User) ToSchemaUser() *schema.User {
+func (a User) GetUser() *schema.User {
 	item := new(schema.User)
 	structure.Copy(a, item)
 	return item
@@ -40,10 +41,10 @@ func (a User) ToSchemaUser() *schema.User {
 
 type Users []*User
 
-func (a Users) ToSchemaUsers() []*schema.User {
+func (a Users) GetUsers() []*schema.User {
 	list := make([]*schema.User, len(a))
 	for i, item := range a {
-		list[i] = item.ToSchemaUser()
+		list[i] = item.GetUser()
 	}
 	return list
 }

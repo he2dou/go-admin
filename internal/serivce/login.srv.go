@@ -2,14 +2,15 @@ package service
 
 import (
 	"context"
+	"net/http"
+	"sort"
+
 	"github.com/he2dou/go-admin/internal/model"
 	"github.com/he2dou/go-admin/internal/pkg/auth"
 	"github.com/he2dou/go-admin/internal/pkg/captcha"
 	"github.com/he2dou/go-admin/internal/pkg/errors"
 	"github.com/he2dou/go-admin/internal/schema"
 	"github.com/he2dou/go-admin/internal/utils/hash"
-	"net/http"
-	"sort"
 
 	"github.com/google/wire"
 )
@@ -137,7 +138,7 @@ func (a *LoginSrv) GetLoginInfo(ctx context.Context, userID uint64) (*schema.Use
 		return nil, err
 	}
 
-	if roleIDs := userRoleResult.Data.ToRoleIDs(); len(roleIDs) > 0 {
+	if roleIDs := userRoleResult.Data.GetRoleIDs(); len(roleIDs) > 0 {
 		roleResult, err := a.RoleRepo.Query(ctx, schema.RoleQueryParam{
 			IDs:    roleIDs,
 			Status: 1,
@@ -180,7 +181,7 @@ func (a *LoginSrv) QueryUserMenuTree(ctx context.Context, userID uint64) (schema
 	}
 
 	roleMenuResult, err := a.RoleMenuRepo.Query(ctx, schema.RoleMenuQueryParam{
-		RoleIDs: userRoleResult.Data.ToRoleIDs(),
+		RoleIDs: userRoleResult.Data.GetRoleIDs(),
 	})
 	if err != nil {
 		return nil, err

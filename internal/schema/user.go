@@ -2,11 +2,12 @@ package schema
 
 import (
 	"context"
+	"time"
+
 	"github.com/he2dou/go-admin/internal/config"
 	"github.com/he2dou/go-admin/internal/utils/hash"
 	"github.com/he2dou/go-admin/internal/utils/json"
 	"github.com/he2dou/go-admin/internal/utils/structure"
-	"time"
 )
 
 // GetRootUser 获取root用户
@@ -70,19 +71,19 @@ type UserQueryResult struct {
 	PageResult *PaginationResult
 }
 
-// ToShowResult 转换为显示结果
-func (a UserQueryResult) ToShowResult(mUserRoles map[uint64]UserRoles, mRoles map[uint64]*Role) *UserShowQueryResult {
+// GetShowResult 转换为显示结果
+func (a UserQueryResult) GetShowResult(mUserRoles map[uint64]UserRoles, mRoles map[uint64]*Role) *UserShowQueryResult {
 	return &UserShowQueryResult{
 		PageResult: a.PageResult,
-		Data:       a.Data.ToUserShows(mUserRoles, mRoles),
+		Data:       a.Data.GetUserShows(mUserRoles, mRoles),
 	}
 }
 
 // Users 用户对象列表
 type Users []*User
 
-// ToIDs 转换为唯一标识列表
-func (a Users) ToIDs() []uint64 {
+// GetIDs 转换为唯一标识列表
+func (a Users) GetIDs() []uint64 {
 	idList := make([]uint64, len(a))
 	for i, item := range a {
 		idList[i] = item.ID
@@ -90,13 +91,13 @@ func (a Users) ToIDs() []uint64 {
 	return idList
 }
 
-// ToUserShows 转换为用户显示列表
-func (a Users) ToUserShows(mUserRoles map[uint64]UserRoles, mRoles map[uint64]*Role) UserShows {
+// GetUserShows 转换为用户显示列表
+func (a Users) GetUserShows(mUserRoles map[uint64]UserRoles, mRoles map[uint64]*Role) UserShows {
 	list := make(UserShows, len(a))
 	for i, item := range a {
 		showItem := new(UserShow)
 		structure.Copy(item, showItem)
-		for _, roleID := range mUserRoles[item.ID].ToRoleIDs() {
+		for _, roleID := range mUserRoles[item.ID].GetRoleIDs() {
 			if v, ok := mRoles[roleID]; ok {
 				showItem.Roles = append(showItem.Roles, v)
 			}
@@ -137,8 +138,8 @@ type UserRoleQueryResult struct {
 // UserRoles 角色菜单列表
 type UserRoles []*UserRole
 
-// ToMap 转换为map
-func (a UserRoles) ToMap() map[uint64]*UserRole {
+// GetMap 转换为map
+func (a UserRoles) GetMap() map[uint64]*UserRole {
 	m := make(map[uint64]*UserRole)
 	for _, item := range a {
 		m[item.RoleID] = item
@@ -146,8 +147,8 @@ func (a UserRoles) ToMap() map[uint64]*UserRole {
 	return m
 }
 
-// ToRoleIDs 转换为角色ID列表
-func (a UserRoles) ToRoleIDs() []uint64 {
+// GetRoleIDs 转换为角色ID列表
+func (a UserRoles) GetRoleIDs() []uint64 {
 	list := make([]uint64, len(a))
 	for i, item := range a {
 		list[i] = item.RoleID
@@ -155,8 +156,8 @@ func (a UserRoles) ToRoleIDs() []uint64 {
 	return list
 }
 
-// ToUserIDMap 转换为用户ID映射
-func (a UserRoles) ToUserIDMap() map[uint64]UserRoles {
+// GetUserIDMap 转换为用户ID映射
+func (a UserRoles) GetUserIDMap() map[uint64]UserRoles {
 	m := make(map[uint64]UserRoles)
 	for _, item := range a {
 		m[item.UserID] = append(m[item.UserID], item)

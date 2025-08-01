@@ -51,8 +51,8 @@ func (a Roles) ToNames() []string {
 	return names
 }
 
-// ToMap 转换为键值存储
-func (a Roles) ToMap() map[uint64]*Role {
+// GetMap 转换为键值存储
+func (a Roles) GetMap() map[uint64]*Role {
 	m := make(map[uint64]*Role)
 	for _, item := range a {
 		m[item.ID] = item

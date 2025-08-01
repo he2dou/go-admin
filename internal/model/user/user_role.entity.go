@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+
 	"github.com/he2dou/go-admin/internal/model/util"
 	"github.com/he2dou/go-admin/internal/schema"
 	"github.com/he2dou/go-admin/internal/utils/structure"
@@ -15,7 +16,7 @@ func GetUserRoleDB(ctx context.Context, defDB *gorm.DB) *gorm.DB {
 
 type SchemaUserRole schema.UserRole
 
-func (a SchemaUserRole) ToUserRole() *UserRole {
+func (a SchemaUserRole) SetUserRole() *UserRole {
 	item := new(UserRole)
 	structure.Copy(a, item)
 	return item
@@ -24,10 +25,10 @@ func (a SchemaUserRole) ToUserRole() *UserRole {
 type UserRole struct {
 	util.Model
 	UserID uint64 `gorm:"index;default:0;"` // 用户内码
-	RoleID uint64 `gorm:"index;default:0;"` // 角色内码
+	RoleID uint64 `gorm:"index;default:0;"` // 角色内Set码
 }
 
-func (a UserRole) ToSchemaUserRole() *schema.UserRole {
+func (a UserRole) GetUserRole() *schema.UserRole {
 	item := new(schema.UserRole)
 	structure.Copy(a, item)
 	return item
@@ -35,10 +36,10 @@ func (a UserRole) ToSchemaUserRole() *schema.UserRole {
 
 type UserRoles []*UserRole
 
-func (a UserRoles) ToSchemaUserRoles() []*schema.UserRole {
+func (a UserRoles) GetUserRoles() []*schema.UserRole {
 	list := make([]*schema.UserRole, len(a))
 	for i, item := range a {
-		list[i] = item.ToSchemaUserRole()
+		list[i] = item.GetUserRole()
 	}
 	return list
 }

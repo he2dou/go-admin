@@ -8,6 +8,7 @@ package injector
 import (
 	"github.com/google/wire"
 	"github.com/he2dou/go-admin/internal/api"
+	"github.com/he2dou/go-admin/internal/model"
 	"github.com/he2dou/go-admin/internal/model/adapter"
 	"github.com/he2dou/go-admin/internal/router"
 	service "github.com/he2dou/go-admin/internal/serivce"

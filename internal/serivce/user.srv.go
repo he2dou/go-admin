@@ -36,20 +36,20 @@ func (a *UserSrv) QueryShow(ctx context.Context, params schema.UserQueryParam, o
 	}
 
 	userRoleResult, err := a.UserRoleRepo.Query(ctx, schema.UserRoleQueryParam{
-		UserIDs: result.Data.ToIDs(),
+		UserIDs: result.Data.GetIDs(),
 	})
 	if err != nil {
 		return nil, err
 	}
 
 	roleResult, err := a.RoleRepo.Query(ctx, schema.RoleQueryParam{
-		IDs: userRoleResult.Data.ToRoleIDs(),
+		IDs: userRoleResult.Data.GetRoleIDs(),
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	return result.ToShowResult(userRoleResult.Data.ToUserIDMap(), roleResult.Data.ToMap()), nil
+	return result.GetShowResult(userRoleResult.Data.GetUserIDMap(), roleResult.Data.GetMap()), nil
 }
 
 func (a *UserSrv) Get(ctx context.Context, id uint64, opts ...schema.UserQueryOptions) (*schema.User, error) {
@@ -178,8 +178,8 @@ func (a *UserSrv) Update(ctx context.Context, id uint64, item schema.User) error
 }
 
 func (a *UserSrv) compareUserRoles(ctx context.Context, oldUserRoles, newUserRoles schema.UserRoles) (addList, delList schema.UserRoles) {
-	mOldUserRoles := oldUserRoles.ToMap()
-	mNewUserRoles := newUserRoles.ToMap()
+	mOldUserRoles := oldUserRoles.GetMap()
+	mNewUserRoles := newUserRoles.GetMap()
 
 	for k, item := range mNewUserRoles {
 		if _, ok := mOldUserRoles[k]; ok {

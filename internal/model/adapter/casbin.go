@@ -3,6 +3,7 @@ package adapter
 import (
 	"context"
 	"fmt"
+
 	"github.com/he2dou/go-admin/internal/model"
 	"github.com/he2dou/go-admin/internal/pkg/logger"
 	"github.com/he2dou/go-admin/internal/schema"
@@ -101,7 +102,7 @@ func (a *CasbinAdapter) loadUserPolicy(ctx context.Context, m casbinModel.Model)
 			return err
 		}
 
-		mUserRoles := userRoleResult.Data.ToUserIDMap()
+		mUserRoles := userRoleResult.Data.GetUserIDMap()
 		for _, uitem := range userResult.Data {
 			if urs, ok := mUserRoles[uitem.ID]; ok {
 				for _, ur := range urs {

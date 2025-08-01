@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+
 	"github.com/he2dou/go-admin/internal/model/util"
 	"github.com/he2dou/go-admin/internal/pkg/errors"
 	"github.com/he2dou/go-admin/internal/schema"
@@ -46,7 +47,7 @@ func (a *UserRoleRepo) Query(ctx context.Context, params schema.UserRoleQueryPar
 	}
 	qr := &schema.UserRoleQueryResult{
 		PageResult: pr,
-		Data:       list.ToSchemaUserRoles(),
+		Data:       list.GetUserRoles(),
 	}
 
 	return qr, nil
@@ -62,17 +63,17 @@ func (a *UserRoleRepo) Get(ctx context.Context, id uint64, opts ...schema.UserRo
 		return nil, nil
 	}
 
-	return item.ToSchemaUserRole(), nil
+	return item.GetUserRole(), nil
 }
 
 func (a *UserRoleRepo) Create(ctx context.Context, item schema.UserRole) error {
-	eitem := SchemaUserRole(item).ToUserRole()
+	eitem := SchemaUserRole(item).SetUserRole()
 	result := GetUserRoleDB(ctx, a.DB).Create(eitem)
 	return errors.WithStack(result.Error)
 }
 
 func (a *UserRoleRepo) Update(ctx context.Context, id uint64, item schema.UserRole) error {
-	eitem := SchemaUserRole(item).ToUserRole()
+	eitem := SchemaUserRole(item).SetUserRole()
 	result := GetUserRoleDB(ctx, a.DB).Where("id=?", id).Updates(eitem)
 	return errors.WithStack(result.Error)
 }
