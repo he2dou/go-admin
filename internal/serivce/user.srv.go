@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	dao "github.com/he2dou/go-admin/internal/model"
+	"github.com/he2dou/go-admin/internal/model"
 	"github.com/he2dou/go-admin/internal/pkg/errors"
 	"github.com/he2dou/go-admin/internal/schema"
 	"github.com/he2dou/go-admin/internal/utils/hash"
@@ -17,10 +17,10 @@ var UserSet = wire.NewSet(wire.Struct(new(UserSrv), "*"))
 
 type UserSrv struct {
 	Enforcer     *casbin.SyncedEnforcer
-	TransRepo    *dao.TransRepo
-	UserRepo     *dao.UserRepo
-	UserRoleRepo *dao.UserRoleRepo
-	RoleRepo     *dao.RoleRepo
+	TransRepo    *model.TransRepo
+	UserRepo     *model.UserRepo
+	UserRoleRepo *model.UserRoleRepo
+	RoleRepo     *model.RoleRepo
 }
 
 func (a *UserSrv) Query(ctx context.Context, params schema.UserQueryParam, opts ...schema.UserQueryOptions) (*schema.UserQueryResult, error) {

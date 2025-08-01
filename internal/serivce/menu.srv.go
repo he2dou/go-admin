@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
-	dao "github.com/he2dou/go-admin/internal/model"
+	"github.com/he2dou/go-admin/internal/model"
 	"github.com/he2dou/go-admin/internal/pkg/contextx"
 	"github.com/he2dou/go-admin/internal/pkg/errors"
 	"github.com/he2dou/go-admin/internal/schema"
@@ -17,10 +17,10 @@ import (
 var MenuSet = wire.NewSet(wire.Struct(new(MenuSrv), "*"))
 
 type MenuSrv struct {
-	TransRepo              *dao.TransRepo
-	MenuRepo               *dao.MenuRepo
-	MenuActionRepo         *dao.MenuActionRepo
-	MenuActionResourceRepo *dao.MenuActionResourceRepo
+	TransRepo              *model.TransRepo
+	MenuRepo               *model.MenuRepo
+	MenuActionRepo         *model.MenuActionRepo
+	MenuActionResourceRepo *model.MenuActionResourceRepo
 }
 
 func (a *MenuSrv) InitData(ctx context.Context, dataFile string) error {

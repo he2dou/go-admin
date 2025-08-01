@@ -3,12 +3,11 @@
 
 // The build tag makes sure the stub is not built in the final build.
 
-package app
+package injector
 
 import (
 	"github.com/google/wire"
 	"github.com/he2dou/go-admin/internal/api"
-	dao "github.com/he2dou/go-admin/internal/model"
 	"github.com/he2dou/go-admin/internal/model/adapter"
 	"github.com/he2dou/go-admin/internal/router"
 	service "github.com/he2dou/go-admin/internal/serivce"
@@ -17,7 +16,7 @@ import (
 func BuildInjector() (*Injector, func(), error) {
 	wire.Build(
 		InitGormDB,
-		dao.RepoSet,
+		model.RepoSet,
 		InitAuth,
 		InitCasbin,
 		InitGinEngine,

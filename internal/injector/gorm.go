@@ -1,9 +1,9 @@
-package app
+package injector
 
 import (
 	"errors"
 	"github.com/he2dou/go-admin/internal/config"
-	dao "github.com/he2dou/go-admin/internal/model"
+	"github.com/he2dou/go-admin/internal/model"
 	"github.com/he2dou/go-admin/internal/pkg/gormx"
 	"os"
 	"path/filepath"
@@ -21,7 +21,7 @@ func InitGormDB() (*gorm.DB, func(), error) {
 	cleanFunc := func() {}
 
 	if cfg.EnableAutoMigrate {
-		err = dao.AutoMigrate(db)
+		err = model.AutoMigrate(db)
 		if err != nil {
 			return nil, cleanFunc, err
 		}

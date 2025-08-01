@@ -1,10 +1,11 @@
-package app
+package cmd
 
 import (
 	"context"
 	"crypto/tls"
 	"fmt"
 	"github.com/he2dou/go-admin/internal/config"
+	"github.com/he2dou/go-admin/internal/injector"
 	"github.com/he2dou/go-admin/internal/pkg/captcha"
 	"github.com/he2dou/go-admin/internal/pkg/captcha/store"
 	"github.com/he2dou/go-admin/internal/pkg/logger"
@@ -78,7 +79,7 @@ func Init(ctx context.Context, opts ...Option) (func(), error) {
 
 	logger.WithContext(ctx).Printf("Start server,#run_mode %s,#version %s,#pid %d", config.App.RunMode, o.Version, os.Getpid())
 
-	loggerCleanFunc, err := InitLogger()
+	loggerCleanFunc, err := injector.InitLogger()
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +88,7 @@ func Init(ctx context.Context, opts ...Option) (func(), error) {
 
 	InitCaptcha()
 
-	injector, injectorCleanFunc, err := BuildInjector()
+	injector, injectorCleanFunc, err := injector.BuildInjector()
 	if err != nil {
 		return nil, err
 	}

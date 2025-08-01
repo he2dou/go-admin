@@ -1,4 +1,4 @@
-package app
+package injector
 
 import (
 	"github.com/gin-gonic/gin"

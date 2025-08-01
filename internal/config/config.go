@@ -45,7 +45,7 @@ func MustLoad(fpaths ...string) {
 }
 
 func PrintWithJSON() {
-	if C.PrintConfig {
+	if App.PrintConfig {
 		b, err := json.MarshalIndent(App, "", " ")
 		if err != nil {
 			os.Stdout.WriteString("[CONFIG] JSON marshal error: " + err.Error())

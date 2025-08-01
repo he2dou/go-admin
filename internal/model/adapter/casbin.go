@@ -3,7 +3,7 @@ package adapter
 import (
 	"context"
 	"fmt"
-	dao "github.com/he2dou/go-admin/internal/model"
+	"github.com/he2dou/go-admin/internal/model"
 	"github.com/he2dou/go-admin/internal/pkg/logger"
 	"github.com/he2dou/go-admin/internal/schema"
 
@@ -17,11 +17,11 @@ var _ persist.Adapter = (*CasbinAdapter)(nil)
 var CasbinAdapterSet = wire.NewSet(wire.Struct(new(CasbinAdapter), "*"), wire.Bind(new(persist.Adapter), new(*CasbinAdapter)))
 
 type CasbinAdapter struct {
-	RoleRepo         *dao.RoleRepo
-	RoleMenuRepo     *dao.RoleMenuRepo
-	MenuResourceRepo *dao.MenuActionResourceRepo
-	UserRepo         *dao.UserRepo
-	UserRoleRepo     *dao.UserRoleRepo
+	RoleRepo         *model.RoleRepo
+	RoleMenuRepo     *model.RoleMenuRepo
+	MenuResourceRepo *model.MenuActionResourceRepo
+	UserRepo         *model.UserRepo
+	UserRoleRepo     *model.UserRoleRepo
 }
 
 // Loads all policy rules from the storage.

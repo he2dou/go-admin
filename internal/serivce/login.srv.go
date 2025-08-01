@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	dao "github.com/he2dou/go-admin/internal/model"
+	"github.com/he2dou/go-admin/internal/model"
 	"github.com/he2dou/go-admin/internal/pkg/auth"
 	"github.com/he2dou/go-admin/internal/pkg/captcha"
 	"github.com/he2dou/go-admin/internal/pkg/errors"
@@ -18,12 +18,12 @@ var LoginSet = wire.NewSet(wire.Struct(new(LoginSrv), "*"))
 
 type LoginSrv struct {
 	Auth           auth.Auther
-	UserRepo       *dao.UserRepo
-	UserRoleRepo   *dao.UserRoleRepo
-	RoleRepo       *dao.RoleRepo
-	RoleMenuRepo   *dao.RoleMenuRepo
-	MenuRepo       *dao.MenuRepo
-	MenuActionRepo *dao.MenuActionRepo
+	UserRepo       *model.UserRepo
+	UserRoleRepo   *model.UserRoleRepo
+	RoleRepo       *model.RoleRepo
+	RoleMenuRepo   *model.RoleMenuRepo
+	MenuRepo       *model.MenuRepo
+	MenuActionRepo *model.MenuActionRepo
 }
 
 func (a *LoginSrv) GetCaptcha(ctx context.Context, length int) (*schema.LoginCaptcha, error) {

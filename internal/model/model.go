@@ -1,4 +1,4 @@
-package dao
+package model
 
 import (
 	"github.com/he2dou/go-admin/internal/config"

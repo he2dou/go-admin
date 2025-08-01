@@ -1,4 +1,4 @@
-package app
+package injector
 
 import (
 	"github.com/casbin/casbin/v2"

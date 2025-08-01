@@ -12,7 +12,7 @@ package main
 
 import (
 	"context"
-	app "github.com/he2dou/go-admin/internal/injector"
+	app "github.com/he2dou/go-admin/internal/cmd"
 	"github.com/he2dou/go-admin/internal/pkg/logger"
 	"github.com/urfave/cli/v2"
 	"os"

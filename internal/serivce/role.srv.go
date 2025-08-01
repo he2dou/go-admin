@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	dao "github.com/he2dou/go-admin/internal/model"
+	"github.com/he2dou/go-admin/internal/model"
 	"github.com/he2dou/go-admin/internal/pkg/errors"
 	"github.com/he2dou/go-admin/internal/schema"
 	"github.com/he2dou/go-admin/internal/utils/snowflake"
@@ -16,11 +16,11 @@ var RoleSet = wire.NewSet(wire.Struct(new(RoleSrv), "*"))
 
 type RoleSrv struct {
 	Enforcer               *casbin.SyncedEnforcer
-	TransRepo              *dao.TransRepo
-	RoleRepo               *dao.RoleRepo
-	RoleMenuRepo           *dao.RoleMenuRepo
-	UserRepo               *dao.UserRepo
-	MenuActionResourceRepo *dao.MenuActionResourceRepo
+	TransRepo              *model.TransRepo
+	RoleRepo               *model.RoleRepo
+	RoleMenuRepo           *model.RoleMenuRepo
+	UserRepo               *model.UserRepo
+	MenuActionResourceRepo *model.MenuActionResourceRepo
 }
 
 func (a *RoleSrv) Query(ctx context.Context, params schema.RoleQueryParam, opts ...schema.RoleQueryOptions) (*schema.RoleQueryResult, error) {
