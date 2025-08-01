@@ -36,7 +36,7 @@ func LoggerMiddleware(skippers ...SkipperFunc) gin.HandlerFunc {
 			mediaType, _, _ := mime.ParseMediaType(c.GetHeader("Content-Type"))
 			if mediaType != "multipart/form-data" {
 				if v, ok := c.Get(ginx.ReqBodyKey); ok {
-					if b, ok := v.([]byte); ok && len(b) <= config.C.HTTP.MaxReqLoggerLength {
+					if b, ok := v.([]byte); ok && len(b) <= config.App.HTTP.MaxReqLoggerLength {
 						fields["body"] = string(b)
 					}
 				}
@@ -49,7 +49,7 @@ func LoggerMiddleware(skippers ...SkipperFunc) gin.HandlerFunc {
 		fields["res_length"] = c.Writer.Size()
 
 		if v, ok := c.Get(ginx.ResBodyKey); ok {
-			if b, ok := v.([]byte); ok && len(b) <= config.C.HTTP.MaxResLoggerLength {
+			if b, ok := v.([]byte); ok && len(b) <= config.App.HTTP.MaxResLoggerLength {
 				fields["res_body"] = string(b)
 			}
 		}

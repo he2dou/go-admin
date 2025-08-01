@@ -10,7 +10,7 @@ import (
 )
 
 func InitAuth() (auth.Auther, func(), error) {
-	cfg := config.C.JWTAuth
+	cfg := config.App.JWTAuth
 
 	var opts []jwtauth.Option
 	opts = append(opts, jwtauth.SetExpired(cfg.Expired))
@@ -36,7 +36,7 @@ func InitAuth() (auth.Auther, func(), error) {
 	var store jwtauth.Storer
 	switch cfg.Store {
 	case "redis":
-		rcfg := config.C.Redis
+		rcfg := config.App.Redis
 		store = redis.NewStore(&redis.Config{
 			Addr:      rcfg.Addr,
 			Password:  rcfg.Password,

@@ -12,7 +12,7 @@ import (
 )
 
 func InitGormDB() (*gorm.DB, func(), error) {
-	cfg := config.C.Gorm
+	cfg := config.App.Gorm
 	db, err := NewGormDB()
 	if err != nil {
 		return nil, nil, err
@@ -31,7 +31,7 @@ func InitGormDB() (*gorm.DB, func(), error) {
 }
 
 func NewGormDB() (*gorm.DB, error) {
-	cfg := config.C
+	cfg := config.App
 	var dsn string
 	switch cfg.Gorm.DBType {
 	case "mysql":

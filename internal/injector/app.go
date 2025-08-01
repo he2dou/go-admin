@@ -66,17 +66,17 @@ func Init(ctx context.Context, opts ...Option) (func(), error) {
 
 	config.MustLoad(o.ConfigFile)
 	if v := o.ModelFile; v != "" {
-		config.C.Casbin.Model = v
+		config.App.Casbin.Model = v
 	}
 	if v := o.WWWDir; v != "" {
-		config.C.WWW = v
+		config.App.WWW = v
 	}
 	if v := o.MenuFile; v != "" {
-		config.C.Menu.Data = v
+		config.App.Menu.Data = v
 	}
 	config.PrintWithJSON()
 
-	logger.WithContext(ctx).Printf("Start server,#run_mode %s,#version %s,#pid %d", config.C.RunMode, o.Version, os.Getpid())
+	logger.WithContext(ctx).Printf("Start server,#run_mode %s,#version %s,#pid %d", config.App.RunMode, o.Version, os.Getpid())
 
 	loggerCleanFunc, err := InitLogger()
 	if err != nil {
@@ -92,8 +92,8 @@ func Init(ctx context.Context, opts ...Option) (func(), error) {
 		return nil, err
 	}
 
-	if config.C.Menu.Enable && config.C.Menu.Data != "" {
-		err = injector.MenuSrv.InitData(ctx, config.C.Menu.Data)
+	if config.App.Menu.Enable && config.App.Menu.Data != "" {
+		err = injector.MenuSrv.InitData(ctx, config.App.Menu.Data)
 		if err != nil {
 			return nil, err
 		}
@@ -110,9 +110,9 @@ func Init(ctx context.Context, opts ...Option) (func(), error) {
 }
 
 func InitCaptcha() {
-	cfg := config.C.Captcha
+	cfg := config.App.Captcha
 	if cfg.Store == "redis" {
-		rc := config.C.Redis
+		rc := config.App.Redis
 		captcha.SetCustomStore(store.NewRedisStore(&redis.Options{
 			Addr:     rc.Addr,
 			Password: rc.Password,
@@ -122,7 +122,7 @@ func InitCaptcha() {
 }
 
 func InitMonitor(ctx context.Context) func() {
-	if c := config.C.Monitor; c.Enable {
+	if c := config.App.Monitor; c.Enable {
 		// ShutdownCleanup set false to prevent automatically closes on os.Interrupt
 		// and close agent manually before service shutting down
 		err := agent.Listen(agent.Options{Addr: c.Addr, ConfigDir: c.ConfigDir, ShutdownCleanup: false})
@@ -137,7 +137,7 @@ func InitMonitor(ctx context.Context) func() {
 }
 
 func InitHTTPServer(ctx context.Context, handler http.Handler) func() {
-	cfg := config.C.HTTP
+	cfg := config.App.HTTP
 	addr := fmt.Sprintf("%s:%d", cfg.Host, cfg.Port)
 	srv := &http.Server{
 		Addr:         addr,

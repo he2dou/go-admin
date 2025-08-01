@@ -13,7 +13,7 @@ import (
 
 // Valid use interface permission
 func CasbinMiddleware(enforcer *casbin.SyncedEnforcer, skippers ...SkipperFunc) gin.HandlerFunc {
-	cfg := config.C.Casbin
+	cfg := config.App.Casbin
 	if !cfg.Enable {
 		return EmptyMiddleware()
 	}

@@ -17,12 +17,12 @@ import (
 
 // Request rate limter (per minute)
 func RateLimiterMiddleware(skippers ...SkipperFunc) gin.HandlerFunc {
-	cfg := config.C.RateLimiter
+	cfg := config.App.RateLimiter
 	if !cfg.Enable {
 		return EmptyMiddleware()
 	}
 
-	rc := config.C.Redis
+	rc := config.App.Redis
 	ring := redis.NewRing(&redis.RingOptions{
 		Addrs: map[string]string{
 			"server1": rc.Addr,

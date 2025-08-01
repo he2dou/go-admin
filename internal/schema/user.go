@@ -11,7 +11,7 @@ import (
 
 // GetRootUser 获取root用户
 func GetRootUser() *User {
-	user := config.C.Root
+	user := config.App.Root
 	return &User{
 		ID:       user.UserID,
 		UserName: user.UserName,

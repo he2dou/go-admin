@@ -38,7 +38,7 @@ type (
 
 // Auto migration for given models
 func AutoMigrate(db *gorm.DB) error {
-	if dbType := config.C.Gorm.DBType; strings.ToLower(dbType) == "mysql" {
+	if dbType := config.App.Gorm.DBType; strings.ToLower(dbType) == "mysql" {
 		db = db.Set("gorm:table_options", "ENGINE=InnoDB")
 	}
 

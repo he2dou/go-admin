@@ -23,7 +23,7 @@ type LoginAPI struct {
 
 func (a *LoginAPI) GetCaptcha(c *gin.Context) {
 	ctx := c.Request.Context()
-	item, err := a.LoginSrv.GetCaptcha(ctx, config.C.Captcha.Length)
+	item, err := a.LoginSrv.GetCaptcha(ctx, config.App.Captcha.Length)
 	if err != nil {
 		ginx.ResError(c, err)
 		return
@@ -46,7 +46,7 @@ func (a *LoginAPI) ResCaptcha(c *gin.Context) {
 		}
 	}
 
-	cfg := config.C.Captcha
+	cfg := config.App.Captcha
 	err := a.LoginSrv.ResCaptcha(ctx, c.Writer, captchaID, cfg.Width, cfg.Height)
 	if err != nil {
 		ginx.ResError(c, err)

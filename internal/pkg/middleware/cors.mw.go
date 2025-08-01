@@ -9,7 +9,7 @@ import (
 )
 
 func CORSMiddleware() gin.HandlerFunc {
-	cfg := config.C.CORS
+	cfg := config.App.CORS
 	return cors.New(cors.Config{
 		AllowOrigins:     cfg.AllowOrigins,
 		AllowMethods:     cfg.AllowMethods,

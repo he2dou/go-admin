@@ -23,9 +23,9 @@ func wrapUserAuthContext(c *gin.Context, userID uint64, userName string) {
 
 // Valid user token (jwt)
 func UserAuthMiddleware(a auth.Auther, skippers ...SkipperFunc) gin.HandlerFunc {
-	if !config.C.JWTAuth.Enable {
+	if !config.App.JWTAuth.Enable {
 		return func(c *gin.Context) {
-			wrapUserAuthContext(c, config.C.Root.UserID, config.C.Root.UserName)
+			wrapUserAuthContext(c, config.App.Root.UserID, config.App.Root.UserName)
 			c.Next()
 		}
 	}
@@ -39,8 +39,8 @@ func UserAuthMiddleware(a auth.Auther, skippers ...SkipperFunc) gin.HandlerFunc 
 		tokenUserID, err := a.ParseUserID(c.Request.Context(), ginx.GetToken(c))
 		if err != nil {
 			if err == auth.ErrInvalidToken {
-				if config.C.IsDebugMode() {
-					wrapUserAuthContext(c, config.C.Root.UserID, config.C.Root.UserName)
+				if config.App.IsDebugMode() {
+					wrapUserAuthContext(c, config.App.Root.UserID, config.App.Root.UserName)
 					c.Next()
 					return
 				}

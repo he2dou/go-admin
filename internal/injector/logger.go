@@ -14,7 +14,7 @@ import (
 )
 
 func InitLogger() (func(), error) {
-	c := config.C.Log
+	c := config.App.Log
 	logger.SetLevel(logger.Level(c.Level))
 	logger.SetFormatter(c.Format)
 

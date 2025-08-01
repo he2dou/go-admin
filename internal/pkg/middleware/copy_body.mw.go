@@ -15,7 +15,7 @@ import (
 // Copy body to context bytes array
 func CopyBodyMiddleware(skippers ...SkipperFunc) gin.HandlerFunc {
 	var maxMemory int64 = 64 << 20 // 64 MB
-	if v := config.C.HTTP.MaxContentLength; v > 0 {
+	if v := config.App.HTTP.MaxContentLength; v > 0 {
 		maxMemory = v
 	}
 

@@ -1,5 +1,6 @@
 package config
 
+import "C"
 import (
 	"fmt"
 	"github.com/he2dou/go-admin/internal/utils/json"
@@ -11,7 +12,7 @@ import (
 )
 
 var (
-	C    = new(Config)
+	App  = new(Config)
 	once sync.Once
 )
 
